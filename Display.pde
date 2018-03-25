@@ -7,7 +7,8 @@
  //<>//
    
    void set_displaydefault(){
-     this.mfont = createFont("Osaka-Mono",48,true);/*Hymmnos*/
+     //this.mfont = createFont("Osaka-Mono",48,true);/*Hymmnos*/
+     mfont = loadFont("Osaka－等幅-48.vlw");
      textFont(mfont, dif.fontsize_field);
      
    }
