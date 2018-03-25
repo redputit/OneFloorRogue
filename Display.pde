@@ -2,6 +2,7 @@
   PFont mfont;
   private int cameraX,cameraY;
   private String[] log = new String[dif.lines_log];
+  private int[] repeatTimes = new int[dif.lines_log];
 //  Diffines test = new Diffines();
  //<>//
    
@@ -11,10 +12,17 @@
      
    }
    void scroll_log(String newlog){
-     this.log[3] = this.log[2];
-     this.log[2] = this.log[1];
-     this.log[1] = this.log[0];
-     this.log[0] = newlog;
+     if(newlog.equals(log[0])) {
+       this.repeatTimes[0]++;
+       println("* " + repeatTimes[0]);
+     } else {
+       for(int n = log.length - 1; n > 0; n--) {
+         this.log[n] = this.log[n - 1];
+         this.repeatTimes[n] = this.repeatTimes[n - 1];
+       }
+       this.log[0] = newlog;
+       this.repeatTimes[0] = 0;
+     }
    }
     void rewrite(){ 
       background(0,0,0);
@@ -71,12 +79,20 @@
 //log      
       displaystr = log[3] + "\n";
       for(int i = 2;i >= 0; i--){
-        displaystr += log[i] + "\n";
+        displaystr += log[i] + getRepeatText(i) + "\n";
       }
       textSize(dif.fontsize_log);
       textLeading(dif.fontsize_log);
       text(displaystr,0,dif.fontsize_field*(dif.get_ynum()+1)-(dif.fontsize_field-dif.fontsize_log));
       displaystr = "t";
+    }
+    
+    private String getRepeatText(int i) {
+      if(repeatTimes[i] > 0) {
+        return " x[" + (repeatTimes[i] + 1) + "]";
+      }
+      
+      return "";
     }
   }
 //   letters.set(0,"@");
