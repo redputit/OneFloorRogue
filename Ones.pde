@@ -192,16 +192,16 @@
             }
             break;
           case 'a':
-            behavior.cast(this.tag_num,2);
+            behavior.spell(this.tag_num,2);
             break;
           case 'w':
-            behavior.cast(this.tag_num,1);
+            behavior.spell(this.tag_num,1);
             break;
           case 'e':
-            behavior.cast(this.tag_num,3);
+            behavior.spell(this.tag_num,3);
             break;
           case 'f':
-            behavior.cast(this.tag_num,0);
+            behavior.spell(this.tag_num,0);
             break;
           default: plrole ='#';
         }

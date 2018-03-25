@@ -171,12 +171,20 @@ class Command{
       }
       
       void trigger(int tag){
-        if(Mobs[tag].target == dif.chara_sum){
+        if(Mobs[tag].target == dif.chara_sum &&Mobs[tag].flag_targetting){
+          magic.cast(Mobs[tag].getY(true),Mobs[tag].getX(true),Mobs[tag].bloodtank[0]);
+        }else if(tag == Mobs[tag].target || dist(Mobs[Mobs[tag].target].getX(false),Mobs[Mobs[tag].target].getY(false),Mobs[tag].getX(false),Mobs[tag].getY(false)) >5 || Mobs[tag].flag_targetting == false){
+          for(int i = 0; i < dif.chara_sum;i++){
+            if(dist(Mobs[i].getX(false),Mobs[i].getY(false),Mobs[tag].getX(false),Mobs[tag].getY(false)) < 5 && i != tag && los(tag,i)){
+              magic.cast(Mobs[i].getY(false),Mobs[i].getX(false),Mobs[tag].bloodtank[0]);
+            }
+          }
         }else{
+          magic.cast(Mobs[Mobs[tag].target].getY(false),Mobs[Mobs[tag].target].getX(false),Mobs[tag].bloodtank[0]);
         }
       }
       
-      void cast(int i,int c){
+      void spell(int i,int c){
         if(Mobs[i].bloodtank[1][c] > 0 && Mobs[i].bloodtank[0][c] < 4){
           Mobs[i].bloodtank[0][c]++;
           Mobs[i].bloodtank[1][c]--;

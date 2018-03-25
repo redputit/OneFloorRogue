@@ -8,15 +8,18 @@
   Ones[] Mobs = new Ones[dif.chara_sum];
   Display window = new Display();
   Command behavior = new Command();
+  Magic magic = new Magic();
   File saves = new File();
 
   
   void setup(){
     fullScreen();
     saves = new File();
+
     saves.config = loadJSONObject("config.json");
     saves.load_config();
     demo = new Action();
+    magic = new Magic();
     for(int i = 0; i < dif.chara_sum;i++){
       Mobs[i] = new Ones();
     }
@@ -36,15 +39,10 @@
     area.maptiles(7,8).is_tile('$');
     Mobs[0].is_he();
     Mobs[1].is_mob();
-//    window.rewrite();
          println(dif.get_ynum());
          println(width);
          println(height);
     frameRate(30);
-//PFont font = createFont("Osaka-Mono",dif.fontsize,true);
-//textFont(font,dif.fontsize);
-//textLeading(48);
-//  text("い\nろ\nは\nに\nほ\nへ\nと\nち\nり\nぬ\nる\nを\nわ\nか\nよ\nた\nれ\nそ\nつ\nねならむういのおくやまけふこえてあさきゆめみしえいもせず",0,dif.fontsize);//日本語検証用
   }
   
   
@@ -60,7 +58,3 @@
     saveJSONObject(saves.config,"data/config.json");
     println("exit");
   }
-//hashmapでアイテムリスト作成
-//text("@####\n#@##",0,36);
-//  }
-//}
