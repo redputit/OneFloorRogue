@@ -1,9 +1,9 @@
   Diffines dif = new Diffines();
-  int plrole = '#';
-  boolean stopper = false;
-  String displaystr = "t";
+  int plrole = '#'; //key初期化用
+  boolean stopper = false;//key入力用　時止め
+  String displaystr = "t";// string 初期化用
+  boolean look = false;//ユーザおよび描画用
   Action demo = new Action();
-  boolean look = false;
   Map area = new Map();
   Ones[] Mobs = new Ones[dif.chara_sum];
   Display window = new Display();
@@ -33,10 +33,10 @@
     window.set_displaydefault();
     area.set_map();
     for(int i = 0;i< 13;i++){
-        area.maptiles(ceil(random(13)),ceil(random(13))).is_tile('$');
+        area.maptiles(ceil(random(13)),ceil(random(13))).set_tile('$');
     }
-    area.maptiles(7,7).is_tile('%');
-    area.maptiles(7,8).is_tile('$');
+    area.maptiles(7,7).set_tile('%');
+    area.maptiles(7,8).set_tile('$');
     Mobs[0].is_he();
     Mobs[1].is_mob();
          println(dif.get_ynum());

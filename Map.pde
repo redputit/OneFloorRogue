@@ -6,7 +6,7 @@ class Map{ //<>//
    void set_map(){
     for(int y = 0; y < dif.mapsize; y++){
       for(int x = 0; x < dif.mapsize; x++){
-         this.maptiles[y][x].is_tile('.');
+         this.maptiles[y][x].set_tile('.');
          this.mapchips[y][x] = '.';
       }
     }
@@ -21,6 +21,18 @@ class Map{ //<>//
     tile = maptiles[y][x];
     return tile;
   }
+
+  void set_field(boolean day){
+    for(int i = 0;i < dif.mapsize;i++){
+      for(int j = 0;j < dif.mapsize;j++){
+        if(day){
+          this.mapchips[i][j] = this.maptiles[i][j].get_character();
+        }else{
+          this.mapchips[i][j] = ' ';
+        }
+      }
+    }
+  }
 }
 
 class Maptile{
@@ -34,7 +46,7 @@ class Maptile{
   
   private boolean flag_ladder = false;
   
-  void is_tile(char character){
+  void set_tile(char character){
     switch(character){
       case '.':
         this.name = "灰";  this.flag_through = true;  this.flag_slower = false;  this.flag_visible = true;  this.flag_damage = false;  this.character =character;

@@ -1,6 +1,5 @@
 class Action{
-   int second, minute,hour,day;
-    String time;
+  private int second, minute,hour,day = 1;
 //  Action(){ //<>//
 //   area.set_map();
 //  user.is_he();
@@ -35,19 +34,26 @@ class Action{
       this.hour-=24;
       this.day++;
     }
+  }
+  
+  int get_day(){
+    return this.day;
+  }
+  String get_time(){
+    String time = new String();
     if(this.hour>= 19){
-      this.time ="夜";
+      time ="夜";
     }else if(this.hour >= 17){
-      this.time = "夕";
+      time = "夕";
     }else if(this.hour >= 9){
-      this.time = "昼";
+      time = "昼";
     }else if(this.hour >= 4){
-      this.time = "朝";
+      time = "朝";
     }else {
-      this.time = "深夜";
+      time = "深夜";
     }
-    
-    
-    
+    return time;
   }
-  }
+    
+    
+}

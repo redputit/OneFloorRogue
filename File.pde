@@ -29,14 +29,8 @@ class File{
     user.setBoolean("user",Mobs[0].user);
     user.setInt("tag_num",Mobs[0].tag_num);
     user.setString("visual",str(Mobs[0].visual));
-    user.setInt("Body_y",Mobs[0].coordinates_body[0]);
-    user.setInt("Body_x",Mobs[0].coordinates_body[1]);
-    user.setInt("look_y",Mobs[0].coordinates_look[0]);
-    user.setInt("look_x",Mobs[0].coordinates_look[1]);
-    user.setBoolean("flag_targetting",Mobs[0].flag_targetting);
-    user.setInt("target",Mobs[0].target);
-    user.setInt("role",Mobs[0].role);
-    user.setBoolean("active",Mobs[0].active);
+    user.setInt("Body_y",Mobs[0].get_bodyY());
+    user.setInt("Body_x",Mobs[0].get_bodyX());
     user.setBoolean("living",Mobs[0].living);
     
     user.setString("name",Mobs[0].name);
