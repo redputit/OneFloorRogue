@@ -170,7 +170,9 @@ class Command{
       
       void trigger(int tag){
         if(Mobs[tag].target == dif.chara_sum && Mobs[tag].flag_targetting){
-          magic.cast(Mobs[tag].get_lookY(),Mobs[tag].get_lookX(),Mobs[tag].get_wand());
+          magic.cast(Mobs[tag].get_lookY(),Mobs[tag].get_lookX(),tag);
+          Mobs[tag].active = false;
+          return;
         }else if(tag == Mobs[tag].target
                  || dist(Mobs[Mobs[tag].target].get_bodyX(),Mobs[Mobs[tag].target].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) > 5
                  || Mobs[tag].flag_targetting == false){
@@ -178,15 +180,19 @@ class Command{
             if(dist(Mobs[i].get_bodyX(),Mobs[i].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) < 5
                && i != tag
                && los(tag,i)){
-              magic.cast(Mobs[i].get_bodyY(),Mobs[i].get_bodyX(),Mobs[tag].get_wand());
+              magic.cast(Mobs[i].get_bodyY(),Mobs[i].get_bodyX(),tag);
+              Mobs[tag].active = false;
+              return;
             }
           }
         }else{
-          magic.cast(Mobs[Mobs[tag].target].get_bodyY(),Mobs[Mobs[tag].target].get_bodyX(),Mobs[tag].get_wand());
+          magic.cast(Mobs[Mobs[tag].target].get_bodyY(),Mobs[Mobs[tag].target].get_bodyX(),tag);
+          Mobs[tag].active = false;
+          return;
         }
       }
       
-      void spell(int i,int c){
+      void spelling(int i,int c){
         switch(c){
           case 0:
             Mobs[i].set_fire();

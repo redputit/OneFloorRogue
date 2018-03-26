@@ -89,7 +89,10 @@
       this.tag_num = 0;
       this.agility = 18000;
       this.strength = 10;
-      this.bloodtank[1][0] =2000;
+      this.bloodtank[1][0] = 500;
+      this.bloodtank[1][1] = 500;
+      this.bloodtank[1][2] = 500;
+      this.bloodtank[1][3] = 500;
       this.hitpoint[0] = 10000; this.hitpoint[1] = 10000;
       this.coordinates_body[0] = 6; this.coordinates_body[1] = 5;
       this.coordinates_look[0] = this.coordinates_body[0]; this.coordinates_look[1] = this.coordinates_body[1];
@@ -158,33 +161,25 @@
     
     void set_fire(){//仮置き
       this.bloodtank[0][0]++;
-      this.bloodtank[1][0]--;
-      if(this.bloodtank[0][0] > 3 || this.bloodtank[1][0] < 0){
-        this.bloodtank[1][0] += this.bloodtank[0][0];
+      if(this.bloodtank[0][0] > 3 || this.bloodtank[1][0] - this.bloodtank[0][0]< 0){
         this.bloodtank[0][0] = 0;
       }
     }
     void set_wind(){
       this.bloodtank[0][1]++;
-      this.bloodtank[1][1]--;
-      if(this.bloodtank[0][1] > 3 || this.bloodtank[1][1] < 0){
-        this.bloodtank[1][1] += this.bloodtank[0][1];
+      if(this.bloodtank[0][1] > 3 || this.bloodtank[1][1] - this.bloodtank[0][1]< 0){
         this.bloodtank[0][1] = 0;
       }
     }
     void set_aqua(){
       this.bloodtank[0][2]++;
-      this.bloodtank[1][2]--;
-      if(this.bloodtank[0][2] > 3 || this.bloodtank[1][2] < 0){
-        this.bloodtank[1][2] += this.bloodtank[0][2];
+      if(this.bloodtank[0][2] > 3 || this.bloodtank[1][2] - this.bloodtank[0][2]< 0){
         this.bloodtank[0][2] = 0;
       }
     }
     void set_earth(){
       this.bloodtank[0][3]++;
-      this.bloodtank[1][3]--;
-      if(this.bloodtank[0][3] > 3 || this.bloodtank[1][3] < 0){
-        this.bloodtank[1][3] += this.bloodtank[0][3];
+      if(this.bloodtank[0][3] > 3 || this.bloodtank[1][3] - this.bloodtank[0][3]< 0){
         this.bloodtank[0][3] = 0;
       }
     }
@@ -194,8 +189,10 @@
     }
     
     void reset_wand(){
-      for(int i = 0; i<4;i++)
+      for(int i = 0; i<4;i++){
+      this.bloodtank[1][i] -= this.bloodtank[0][i];
       this.bloodtank[0][i] = 0;
+      }
     }
     void damage(int atk){
       this.hitpoint[0] -= atk;
@@ -270,16 +267,16 @@
             }
             break;
           case 'a':
-            behavior.spell(this.tag_num,2);
+            behavior.spelling(this.tag_num,2);
             break;
           case 'w':
-            behavior.spell(this.tag_num,1);
+            behavior.spelling(this.tag_num,1);
             break;
           case 'e':
-            behavior.spell(this.tag_num,3);
+            behavior.spelling(this.tag_num,3);
             break;
           case 'f':
-            behavior.spell(this.tag_num,0);
+            behavior.spelling(this.tag_num,0);
             break;
           default: plrole ='#';
         }
