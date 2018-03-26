@@ -89,6 +89,7 @@
       this.tag_num = 0;
       this.agility = 18000;
       this.strength = 10;
+      this.bloodtank[1][0] =2000;
       this.hitpoint[0] = 10000; this.hitpoint[1] = 10000;
       this.coordinates_body[0] = 6; this.coordinates_body[1] = 5;
       this.coordinates_look[0] = this.coordinates_body[0]; this.coordinates_look[1] = this.coordinates_body[1];
@@ -99,6 +100,7 @@
       this.user =false;
       this.living = true;
       this.hitpoint[0] = 30;
+      this.hitpoint[1] = 60;
       this.name = "test";
       this.tag_num =1;
       this.agility = 10000;
@@ -154,7 +156,7 @@
       this.coordinates_look[1] = this.coordinates_body[1];
     }
     
-    void set_fire(){
+    void set_fire(){//仮置き
       this.bloodtank[0][0]++;
       this.bloodtank[1][0]--;
       if(this.bloodtank[0][0] > 3 || this.bloodtank[1][0] < 0){

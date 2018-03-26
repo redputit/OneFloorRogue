@@ -1,4 +1,4 @@
-  Diffines dif = new Diffines();
+  Difines dif = new Difines();
   int plrole = '#'; //key初期化用
   boolean stopper = false;//key入力用　時止め
   String displaystr = "t";// string 初期化用

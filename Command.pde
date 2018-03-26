@@ -37,7 +37,7 @@ class Command{
         }
       }else if(look ==true){
         for(int n = 0; n < dif.chara_sum;n++){
-          if(Mobs[m].get_bodyY() + i == Mobs[n].get_bodyY() && Mobs[m].get_bodyX() + j == Mobs[n].get_bodyX() &&los(m,n)){
+          if(Mobs[m].get_lookY() + i == Mobs[n].get_bodyY() && Mobs[m].get_lookX() + j == Mobs[n].get_bodyX() &&los(m,n)){
             Mobs[m].set_lookY(i); Mobs[m].set_lookX(j);
             window.scroll_log(Mobs[n].name + "(" + Mobs[n].get_HP() + ")" + "だ");
             plrole = '#';
@@ -169,11 +169,15 @@ class Command{
       }
       
       void trigger(int tag){
-        if(Mobs[tag].target == dif.chara_sum &&Mobs[tag].flag_targetting){
+        if(Mobs[tag].target == dif.chara_sum && Mobs[tag].flag_targetting){
           magic.cast(Mobs[tag].get_lookY(),Mobs[tag].get_lookX(),Mobs[tag].get_wand());
-        }else if(tag == Mobs[tag].target || dist(Mobs[Mobs[tag].target].get_bodyX(),Mobs[Mobs[tag].target].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) >5 || Mobs[tag].flag_targetting == false){
+        }else if(tag == Mobs[tag].target
+                 || dist(Mobs[Mobs[tag].target].get_bodyX(),Mobs[Mobs[tag].target].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) > 5
+                 || Mobs[tag].flag_targetting == false){
           for(int i = 0; i < dif.chara_sum;i++){
-            if(dist(Mobs[i].get_bodyX(),Mobs[i].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) < 5 && i != tag && los(tag,i)){
+            if(dist(Mobs[i].get_bodyX(),Mobs[i].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) < 5
+               && i != tag
+               && los(tag,i)){
               magic.cast(Mobs[i].get_bodyY(),Mobs[i].get_bodyX(),Mobs[tag].get_wand());
             }
           }
