@@ -72,10 +72,10 @@
       displaystr += Mobs[0].get_HP() + "\n";
       displaystr += demo.get_day() + "日目\n";
       displaystr += demo.get_time() + "\n\n";
-      displaystr += "f:" + Mobs[0].bloodtank[0][0] + "/" + Mobs[0].bloodtank[1][0] + "\n";
-      displaystr += "e:" + Mobs[0].bloodtank[0][3] + "/" + Mobs[0].bloodtank[1][3] + "\n";
-      displaystr += "w:" + Mobs[0].bloodtank[0][1] + "/" + Mobs[0].bloodtank[1][1] + "\n";      
-      displaystr += "a:" + Mobs[0].bloodtank[0][2] + "/" + Mobs[0].bloodtank[1][2] + "\n";        
+      displaystr += "f:" + Mobs[0].bloodtank[0][0] + "/" + Mobs[0].bloodtank[1][0] + "cc\n";
+      displaystr += "e:" + Mobs[0].bloodtank[0][3] + "/" + Mobs[0].bloodtank[1][3] + "cc\n";
+      displaystr += "w:" + Mobs[0].bloodtank[0][1] + "/" + Mobs[0].bloodtank[1][1] + "cc\n";      
+      displaystr += "a:" + Mobs[0].bloodtank[0][2] + "/" + Mobs[0].bloodtank[1][2] + "cc\n";        
       textSize(dif.fontsize_stat);
       textLeading(dif.fontsize_stat);
       text(displaystr,0,dif.fontsize_stat,dif.fontsize_stat*dif.letters_stat);

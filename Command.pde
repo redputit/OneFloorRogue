@@ -172,9 +172,10 @@ class Command{
         if(Mobs[tag].target == dif.chara_sum && Mobs[tag].flag_targetting){
           magic.cast(Mobs[tag].get_lookY(),Mobs[tag].get_lookX(),tag);
           Mobs[tag].active = false;
+          plrole = '#';
           return;
         }else if(tag == Mobs[tag].target
-                 || dist(Mobs[Mobs[tag].target].get_bodyX(),Mobs[Mobs[tag].target].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) > 5
+                 || dist(Mobs[constrain(Mobs[tag].target,0,dif.chara_sum-1)].get_bodyX(),Mobs[constrain(Mobs[tag].target,0,dif.chara_sum-1)].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) > 5
                  || Mobs[tag].flag_targetting == false){
           for(int i = 0; i < dif.chara_sum;i++){
             if(dist(Mobs[i].get_bodyX(),Mobs[i].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) < 5
@@ -182,12 +183,14 @@ class Command{
                && los(tag,i)){
               magic.cast(Mobs[i].get_bodyY(),Mobs[i].get_bodyX(),tag);
               Mobs[tag].active = false;
+              plrole = '#';
               return;
             }
           }
         }else{
           magic.cast(Mobs[Mobs[tag].target].get_bodyY(),Mobs[Mobs[tag].target].get_bodyX(),tag);
           Mobs[tag].active = false;
+          plrole = '#';
           return;
         }
       }
