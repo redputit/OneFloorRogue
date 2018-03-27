@@ -239,15 +239,67 @@
         
         switch(this.role){
           
-          case 'h': behavior.move(0,-1,this.tag_num,look); break;
-          case 'j': behavior.move(1,0,this.tag_num,look); break;
-          case 'k': behavior.move(-1,0,this.tag_num,look); break;
-          case 'l': behavior.move(0,1,this.tag_num,look); break;
-          case 'b': behavior.move(1,-1,this.tag_num,look); break;
-          case 'n': behavior.move(1,1,this.tag_num,look); break;
-          case 'y': behavior.move(-1,-1,this.tag_num,look); break;
-          case 'u': behavior.move(-1,1,this.tag_num,look); break;
-          case '.': behavior.move(0,0,this.tag_num,look); break;
+          case 'h': 
+            if(look ==false){
+              behavior.move(0,-1,this.tag_num);
+            }else{
+              behavior.look(0,-1,this.tag_num);
+            }
+            break;
+          case 'j':
+            if(look == false){
+              behavior.move(1,0,this.tag_num);
+            }else{
+              behavior.look(1,0,this.tag_num)
+            }
+            break;
+          case 'k':
+            if(look==false){
+              behavior.move(-1,0,this.tag_num);
+            }else{
+              behavior.look(-1,0,this.tag_num);
+            }
+            break;
+          case 'l':
+            if(look == false){
+              behavior.move(0,1,this.tag_num);
+            }else{
+              behavior.look(0,1,this.tag_num);
+            }
+            break;
+          case 'b': 
+            if(look ==false){
+              behavior.move(1,-1,this.tag_num);
+            }else{
+              behavior.look(1,-1,this.tag_num);
+            }
+            break;
+          case 'n':
+          if(look == false){
+            behavior.move(1,1,this.tag_num);
+          }else{
+            behavior.look(1,1,this.tag_num);
+          }break;
+          case 'y':
+          if(look==false){
+            behavior.move(-1,-1,this.tag_num);
+          }else{
+            behavior.look(-1,-1,this.tag_num)
+          }
+          break;
+          case 'u':
+          if(look==false){
+            behavior.move(-1,1,this.tag_num);
+          }else{
+            behavior.look(-1,1,this.tag_num);
+          }
+          break;
+          case '.':
+          if(look==false){
+            behavior.move(0,0,this.tag_num);
+          }else{
+            behavior.look(0,0,this.tag_num);
+          }break;
           case '*':
             if(this.user == true){
               if(look == false){

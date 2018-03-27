@@ -1,7 +1,6 @@
 class Command{
 
-      void move(int i,int j,int m,boolean look){
-      if(look != true){
+      void move(int i,int j,int m,){
         for(int n = 0; n < dif.chara_sum;n++){
           if(Mobs[m].get_bodyY() + i == Mobs[n].get_bodyY() && Mobs[m].get_bodyX() + j == Mobs[n].get_bodyX() &&Mobs[m].tag_num != n){
             window.scroll_log(Mobs[m].name + "が" + Mobs[n].name + "に攻撃した");
@@ -35,33 +34,36 @@ class Command{
             plrole = '#';
             Mobs[m].active = false;
         }
-      }else if(look ==true){
+      }
+        
+      void look (int i, int j, int tag){
+        
         for(int n = 0; n < dif.chara_sum;n++){
-          if(Mobs[m].get_lookY() + i == Mobs[n].get_bodyY() && Mobs[m].get_lookX() + j == Mobs[n].get_bodyX() &&los(m,n)){
-            Mobs[m].set_lookY(i); Mobs[m].set_lookX(j);
+          if(Mobs[tag].get_lookY() + i == Mobs[n].get_bodyY() && Mobs[tag].get_lookX() + j == Mobs[n].get_bodyX() &&los(m,n)){
+            Mobs[tag].set_lookY(i); Mobs[tag].set_lookX(j);
             window.scroll_log(Mobs[n].name + "(" + Mobs[n].get_HP() + ")" + "だ");
             plrole = '#';
             return;
           }
         }
       
-        if(Mobs[m].get_lookY() + i < 0 || Mobs[m].get_lookY() +i > dif .mapsize-1 || Mobs[m].get_lookX() + j < 0 || Mobs[m].get_lookX() + j > dif.mapsize-1){
+        if(Mobs[tag].get_lookY() + i < 0 || Mobs[tag].get_lookY() +i > dif .mapsize-1 || Mobs[tag].get_lookX() + j < 0 || Mobs[tag].get_lookX() + j > dif.mapsize-1){
             window.scroll_log("作戦範囲外だ");
             plrole = '#';
             
-          }else if(area.maptiles[Mobs[m].get_lookY() + i][Mobs[m].get_lookX() + j].get_name() != "灰"){
-            Mobs[m].set_lookY(i);
-            Mobs[m].set_lookX(j);
-            window.scroll_log(area.maptiles(Mobs[m].get_lookY(),Mobs[m].get_lookX()).get_name() + "だ");
+          }else if(area.maptiles[Mobs[tag].get_lookY() + i][Mobs[tag].get_lookX() + j].get_name() != "灰"){
+            Mobs[tag].set_lookY(i);
+            Mobs[tag].set_lookX(j);
+            window.scroll_log(area.maptiles(Mobs[tag].get_lookY(),Mobs[tag].get_lookX()).get_name() + "だ");
             plrole = '#';
           }else{
-            Mobs[m].set_lookY(i);
-            Mobs[m].set_lookX(j);
+            Mobs[tag].set_lookY(i);
+            Mobs[tag].set_lookX(j);
             plrole = '#';
           }
 
-        }
       }
+      
       
       void targetting(int m){
         for(int i = 0; i < dif.chara_sum;i++){
