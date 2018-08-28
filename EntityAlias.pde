@@ -1,0 +1,2 @@
+class EntityAlias extends TileTemplate{
+}

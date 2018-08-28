@@ -1,7 +1,7 @@
 class Command{
 
-      void move(int i,int j,int m,){
-        for(int n = 0; n < dif.chara_sum;n++){
+      void move(int i,int j,int m){
+        for(int n = 0; n < def.chara_sum;n++){
           if(Mobs[m].get_bodyY() + i == Mobs[n].get_bodyY() && Mobs[m].get_bodyX() + j == Mobs[n].get_bodyX() &&Mobs[m].tag_num != n){
             window.scroll_log(Mobs[m].name + "が" + Mobs[n].name + "に攻撃した");
             Mobs[n].damage(Mobs[m].strength);
@@ -12,7 +12,7 @@ class Command{
           }
         }
       
-        if(Mobs[m].get_bodyY() + i < 0 || Mobs[m].get_bodyY() +i > dif .mapsize-1 || Mobs[m].get_bodyX() + j < 0 || Mobs[m].get_bodyX() + j > dif.mapsize-1){
+        if(Mobs[m].get_bodyY() + i < 0 || Mobs[m].get_bodyY() +i > def .mapsize-1 || Mobs[m].get_bodyX() + j < 0 || Mobs[m].get_bodyX() + j > def.mapsize-1){
           if(Mobs[m].user == true){
             window.scroll_log("「そちらは作戦範囲外だ、引き返せ」");
             plrole = '#';
@@ -27,7 +27,7 @@ class Command{
           return;
         }else{
             Mobs[m].set_bodyY(i); Mobs[m].set_bodyX(j);
-            if(Mobs[m].target != dif.chara_sum){
+            if(Mobs[m].target != def.chara_sum){
               Mobs[m].set_lookdefault();
             }
  
@@ -38,8 +38,8 @@ class Command{
         
       void look (int i, int j, int tag){
         
-        for(int n = 0; n < dif.chara_sum;n++){
-          if(Mobs[tag].get_lookY() + i == Mobs[n].get_bodyY() && Mobs[tag].get_lookX() + j == Mobs[n].get_bodyX() &&los(m,n)){
+        for(int n = 0; n < def.chara_sum;n++){
+          if(Mobs[tag].get_lookY() + i == Mobs[n].get_bodyY() && Mobs[tag].get_lookX() + j == Mobs[n].get_bodyX() &&los(tag,n)){
             Mobs[tag].set_lookY(i); Mobs[tag].set_lookX(j);
             window.scroll_log(Mobs[n].name + "(" + Mobs[n].get_HP() + ")" + "だ");
             plrole = '#';
@@ -47,7 +47,7 @@ class Command{
           }
         }
       
-        if(Mobs[tag].get_lookY() + i < 0 || Mobs[tag].get_lookY() +i > dif .mapsize-1 || Mobs[tag].get_lookX() + j < 0 || Mobs[tag].get_lookX() + j > dif.mapsize-1){
+        if(Mobs[tag].get_lookY() + i < 0 || Mobs[tag].get_lookY() +i > def .mapsize-1 || Mobs[tag].get_lookX() + j < 0 || Mobs[tag].get_lookX() + j > def.mapsize-1){
             window.scroll_log("作戦範囲外だ");
             plrole = '#';
             
@@ -66,7 +66,7 @@ class Command{
       
       
       void targetting(int m){
-        for(int i = 0; i < dif.chara_sum;i++){
+        for(int i = 0; i < def.chara_sum;i++){
           if(Mobs[m].get_lookY() == Mobs[i].get_bodyY() && Mobs[m].get_lookX() == Mobs[i].get_bodyX()){
             Mobs[m].flag_targetting = true;
             Mobs[m].target = i;
@@ -75,7 +75,7 @@ class Command{
         }
         if(Mobs[m].flag_targetting != true){
           Mobs[m].flag_targetting = true;
-          Mobs[m].target = dif.chara_sum;
+          Mobs[m].target = def.chara_sum;
           window.scroll_log(area.maptiles(Mobs[m].get_lookY(),Mobs[m].get_lookX()).get_name() + "に狙いを定めた");
         }
         look = false;
@@ -171,15 +171,16 @@ class Command{
       }
       
       void trigger(int tag){
-        if(Mobs[tag].target == dif.chara_sum && Mobs[tag].flag_targetting){
+        if(Mobs[tag].target == def.chara_sum && Mobs[tag].flag_targetting){
           magic.cast(Mobs[tag].get_lookY(),Mobs[tag].get_lookX(),tag);
           Mobs[tag].active = false;
           plrole = '#';
           return;
         }else if(tag == Mobs[tag].target
-                 || dist(Mobs[constrain(Mobs[tag].target,0,dif.chara_sum-1)].get_bodyX(),Mobs[constrain(Mobs[tag].target,0,dif.chara_sum-1)].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) > 5
-                 || Mobs[tag].flag_targetting == false){
-          for(int i = 0; i < dif.chara_sum;i++){
+                 || dist(Mobs[constrain(Mobs[tag].target,0,def.chara_sum-1)].get_bodyX(),Mobs[constrain(Mobs[tag].target,0,def.chara_sum-1)].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) > 5
+                 || Mobs[tag].flag_targetting == false
+                 || los(tag,Mobs[tag].target)){
+          for(int i = 0; i < def.chara_sum;i++){
             if(dist(Mobs[i].get_bodyX(),Mobs[i].get_bodyY(),Mobs[tag].get_bodyX(),Mobs[tag].get_bodyY()) < 5
                && i != tag
                && los(tag,i)){
@@ -213,6 +214,14 @@ class Command{
             break;
         }
         plrole = '#';        
+      }
+      
+      void get_item(int tag_num){
+        
+      }
+      
+      void drop_item(int tag_num){
+        
       }
 
 }

@@ -9,35 +9,35 @@
         }
         switch(id){
           case 0:
-            area.maptiles(y,x).set_tile('"');
+            area.change_tile(y,x,'"');
             window.scroll_log(Mobs[tag].name + "は溶岩を召喚した");
             break;
           case 1:
-            area.maptiles(y,x).set_tile('`');
+            area.change_tile(y,x,'`');
             window.scroll_log(Mobs[tag].name +"は炎を召喚した");
             break;
           case 2:
-            area.maptiles(y,x).set_tile('|');
+            area.change_tile(y,x,'|');
             window.scroll_log(Mobs[tag].name + "は火柱を召喚した");
             break;
           case 3:
-            area.maptiles(y,x).set_tile('%');
+            area.change_tile(y,x,'%');
             window.scroll_log(Mobs[tag].name + "は壁を召喚した");
             break;
           case 4:
-            area.maptiles(y,x).set_tile(' ');
+            area.change_tile(y,x,' ');
             window.scroll_log(Mobs[tag].name + "は奈落を召喚した");
             break;
           case 5:
-            area.maptiles(y,x).set_tile('^');
+            area.change_tile(y,x,'^');
             window.scroll_log(Mobs[tag].name + "は木を召喚した");
             break;
           case 6:
-            area.maptiles(y,x).set_tile('~');
+            area.change_tile(y,x,'~');
             window.scroll_log(Mobs[tag].name + "は沼を召喚した");
             break;
           case 7:
-            area.maptiles(y,x).set_tile('$');
+            area.change_tile(y,x,'$');
             window.scroll_log(Mobs[tag].name + "は嵐を召喚した");
             break;
           default:

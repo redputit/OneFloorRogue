@@ -11,15 +11,15 @@
     boolean active;
     boolean living;
     
+    Job Job;
     String name;
-    int strength;
-    int size;
-    int constitution;
-    int dexterity;
+    int strength;//melee
+    int size;//hitpoint melee
+    int constitution;//hitpoint
+    int dexterity;//melee
     int intelligence;
-    int education;
-    int power;
-    int agility;
+    int power;//magic
+    int agility;//speed
     int appearance;
     
     private int[] hitpoint = new int[2];//0:HP, 1:MHP
@@ -30,6 +30,10 @@
     boolean spirit;
     int[] tolerance = new int[4];//0:fire,1:wind,2:aqua,3:earth
     private int[][] bloodtank = new int[3][4];//0:for magic 1:for tank 2:limit
+    private int[][] recipe = new int[4][4];
+    
+    ArrayList<Item> Inventory;
+    Item[] Equipment = new Item[3];//0 weapon 1 wand 2 armor
     int energy = 0;
     
     String get_HP(){
@@ -250,7 +254,7 @@
             if(look == false){
               behavior.move(1,0,this.tag_num);
             }else{
-              behavior.look(1,0,this.tag_num)
+              behavior.look(1,0,this.tag_num);
             }
             break;
           case 'k':
@@ -284,7 +288,7 @@
           if(look==false){
             behavior.move(-1,-1,this.tag_num);
           }else{
-            behavior.look(-1,-1,this.tag_num)
+            behavior.look(-1,-1,this.tag_num);
           }
           break;
           case 'u':

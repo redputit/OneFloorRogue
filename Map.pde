@@ -1,30 +1,34 @@
 class Map{ //<>//
-  private Maptile[][]  maptiles = new Maptile[dif.mapsize][dif.mapsize];
-  char[][] mapchips = new char[dif.mapsize][dif.mapsize];
- // char[][] grounds = new char[dif.mapsize][dif.mapsize];
+  private TileTemplate[][]  maptiles = new TileTemplate[def.mapsize][def.mapsize];
+  char[][] mapchips = new char[def.mapsize][def.mapsize];
+ // char[][] grounds = new char[def.mapsize][def.mapsize];
  
    void set_map(){
-    for(int y = 0; y < dif.mapsize; y++){
-      for(int x = 0; x < dif.mapsize; x++){
-         this.maptiles[y][x].set_tile('.');
+    for(int y = 0; y < def.mapsize; y++){
+      for(int x = 0; x < def.mapsize; x++){
+         this.maptiles[y][x] = tilecreater.set_tile('.');
          this.mapchips[y][x] = '.';
       }
     }
   }
   
-  Maptile maptiles(int y, int x) {
-    Maptile tile;
-    if(x < 0 || x <= dif.mapsize || y < 0 || y <= dif.mapsize) {
-      x = constrain(x,0,dif.mapsize-1);
-      y = constrain(y,0,dif.mapsize-1);
+  TileTemplate maptiles(int y, int x) {
+    TileTemplate tile;
+    if(x < 0 || x <= def.mapsize || y < 0 || y <= def.mapsize) {
+      x = constrain(x,0,def.mapsize-1);
+      y = constrain(y,0,def.mapsize-1);
     }
     tile = maptiles[y][x];
     return tile;
   }
+  
+  void change_tile(int y,int x, char tile){
+    this.maptiles[y][x] = tilecreater.set_tile(tile);
+  }
 
   void set_field(boolean day){
-    for(int i = 0;i < dif.mapsize;i++){
-      for(int j = 0;j < dif.mapsize;j++){
+    for(int i = 0;i < def.mapsize;i++){
+      for(int j = 0;j < def.mapsize;j++){
         if(day){
           this.mapchips[i][j] = this.maptiles[i][j].get_character();
         }else{
@@ -35,59 +39,51 @@ class Map{ //<>//
   }
 }
 
-class Maptile{
-  private String name;
-  private char character;
-  
-  private boolean flag_through = false;
-  private boolean flag_slow = false;
-  private boolean flag_visible = false;
-  private boolean flag_damage = false;
-  
-  private boolean flag_ladder = false;
-  
-  void set_tile(char character){
+class Maptile{  
+  TileTemplate set_tile(char character){
     switch(character){
       case '.':
-        this.name = "灰";  this.flag_through = true;  this.flag_slow = false;  this.flag_visible = true;  this.flag_damage = false;  this.character =character;
-        break;
+        return new Ash();
       case '^':
-        this.name = "木";/*earth aqua*/  this.flag_through = true;  this.flag_slow = true;   this.flag_visible = false;  this.flag_damage = false; this.character = character;
-        break;
+        return new Tree();
       case '%':
-        this.name = "壁";/*earth*/   this.flag_through = false;  this.flag_slow = false; this.flag_visible = false; this.flag_damage = false; this.character = character;
-        break;
+        return new Wall();
       case'~':
-        this.name = "沼";/*aqua*/  this.flag_through = true;  this.flag_slow = true;  this.flag_visible = true;  this.flag_damage = false;  this.character = character;
-        break;
+        return new Swamp();
       case ' ':
-        this.name = "奈落";/*wind*/  this.flag_through = false;  this.flag_slow = false;  this.flag_visible = true;  this.flag_damage = false;  this.character = character;
-        break;
+        return new Hole();
       case '`':
-        this.name = "炎";/*fire*/  this.flag_through = true;  this.flag_slow = false;  this.flag_visible =true;  this.flag_damage = true;  this.character = character;
-        break;
+        return new Fire();
       case '"':
-        this.name = "溶岩";/*earth fire*/  this.flag_through = true;  this.flag_slow = true;  this.flag_visible = true;  this.flag_damage = true; this.character = character;
-        break;
+        return new Magma();
       case '|':
-        this.name = "火柱";/*wind fire*/  this.flag_through = true;  this.flag_slow = false;  this.flag_visible = false;  this.flag_damage = true;  this.character = character;
-        break;
+        return new BlazingColumn();
       case '$':
-        this.name = "嵐";/*wind aqua*/  this.flag_through = true;  this.flag_slow = true;  this.flag_visible = false;  this.flag_damage = true;  this.character = character;
-        break;
+        return new Storm();
       case '#':
-        this.name ="梯";
-        this.flag_ladder = true;
-        this.flag_through = true;
-        this.flag_slow = false;
-        this.flag_visible = true;
-        this.flag_damage = false;
-        this.character = character;
-      
+        return new Ladder();
       default:
+      return new Ash();
     }
   }
-  boolean is_through(){
+}
+
+abstract class TileTemplate{
+  protected String name;
+  protected char character;
+  
+  protected boolean flag_through;
+  protected boolean flag_slow;
+  protected boolean flag_visible;
+  protected boolean flag_damage;
+  
+  protected boolean flag_ladder;
+  
+  protected boolean known;
+  
+  protected void checked(){this.known = true;}
+  
+  public boolean is_through(){
     return this.flag_through;
   }
   boolean is_visible(){
@@ -103,10 +99,144 @@ class Maptile{
     return this.flag_ladder;
   }
   
+  boolean is_known(){
+    return this.known;
+  }
+  
   char get_character(){
     return this.character;
   }
   String get_name(){
     return this.name;
+  }
+}
+
+class Ash extends TileTemplate{
+  Ash(){
+    this.name = "灰";
+    this.character = '.';
+    this.flag_through = true;
+    this.flag_slow = false;
+    this.flag_visible = true;
+    this.flag_damage = false;
+    this.flag_ladder = false;
+    this.known = false;
+  }
+}
+
+class Tree extends TileTemplate/*earth aqua*/{
+  Tree(){
+    this.name = "木";
+    this.character = '^';
+    this.flag_through = true;
+    this.flag_slow = true;
+    this.flag_visible = false;
+    this.flag_damage = false; 
+    this.flag_ladder = false;
+    this.known = false;
+  }
+}
+
+class Wall extends TileTemplate/*earth*/{
+  Wall(){
+    this.name = "壁";/*earth*/
+    this.flag_through = false;
+    this.flag_slow = false;
+    this.flag_visible = false;
+    this.flag_damage = false;
+    this.flag_ladder = false;
+    this.character = '%';
+    this.known = false;
+  }
+}
+
+class Swamp extends TileTemplate{
+  Swamp(){
+    this.name = "沼";/*aqua*/
+    this.flag_through = true;
+    this.flag_slow = true;
+    this.flag_visible = true;
+    this.flag_damage = false;
+    this.flag_ladder = false;
+    this.character = '~';
+    this.known = false;
+  }
+}
+
+class Hole extends TileTemplate{
+  Hole(){
+    this.name = "奈落";/*wind*/
+    this.flag_through = false;
+    this.flag_slow = false;
+    this.flag_visible = true;
+    this.flag_damage = false;
+    this.flag_ladder = false;
+    this.character = ' ';
+    this.known = false;
+  }
+}
+
+class Fire extends TileTemplate{
+  Fire(){
+    this.name = "炎";/*fire*/
+    this.flag_through = true;
+    this.flag_slow = false;
+    this.flag_visible =true;
+    this.flag_damage = true;
+    this.flag_ladder = false;
+    this.character = '`';
+    this.known = false;
+  }
+}
+
+class Magma extends TileTemplate{
+  Magma(){
+    this.name = "溶岩";/*earth fire*/
+    this.flag_through = true;
+    this.flag_slow = true;
+    this.flag_visible = true;
+    this.flag_damage = true;
+    this.flag_ladder = false;
+    this.character = '"';
+    this.known = false;
+  }
+}
+
+class BlazingColumn extends TileTemplate{
+  BlazingColumn(){
+    this.name = "火柱";/*wind fire*/
+    this.flag_through = true;
+    this.flag_slow = false;
+    this.flag_visible = false;
+    this.flag_damage = true;
+    this.flag_ladder = false;
+    this.character = '|';
+    this.known = false;
+  }
+}
+
+class Storm extends TileTemplate{
+  Storm(){
+    this.name = "嵐";/*wind aqua*/
+    this.flag_through = true;
+    this.flag_slow = true;
+    this.flag_visible = false;
+    this.flag_damage = true;
+    this.flag_ladder = false;
+    this.character = '$';
+    this.known = false;
+  }
+}
+
+class Ladder extends TileTemplate{
+  Ladder(){
+    this.name ="梯";
+        this.flag_ladder = true;
+        this.flag_through = true;
+        this.flag_slow = false;
+        this.flag_visible = true;
+        this.flag_damage = false;
+        this.character = '#';
+        this.known = false;
   }
 }

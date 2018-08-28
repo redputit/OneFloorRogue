@@ -1,21 +1,21 @@
 class Action{
   private int second, minute,hour,day = 1;
-//  Action(){ //<>//
+//  Action(){ //<>// //<>//
 //   area.set_map();
 //  user.is_he();
 //   window.rewrite();
-//  } //<>//
+//  } //<>// //<>//
   
   void roll(){
-      window.rewrite();
+      window.rewrite_field();
       if(stopper !=true){
-        for(int i = 0; i < dif.chara_sum;i++){        
+        for(int i = 0; i < def.chara_sum;i++){        
           Mobs[i].charge();
           this.grobalturn();
         }
 
       }
-      for(int i = 0; i < dif.chara_sum; i++){
+      for(int i = 0; i < def.chara_sum; i++){
         Mobs[i].act();
       }
   }

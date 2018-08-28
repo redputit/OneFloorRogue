@@ -1,16 +1,16 @@
  class Display{
   PFont mfont;
   private int cameraX,cameraY;
-  private String[] log = new String[dif.lines_log];
-  private int[] repeatTimes = new int[dif.lines_log];
+  private String[] log = new String[def.lines_log];
+  private int[] repeatTimes = new int[def.lines_log];
 //  Diffines test = new Diffines(); //<>//
  //<>//
    
    void set_displaydefault(){
-     //this.mfont = createFont("Osaka-Mono",48,true);/*Hymmnos*/
+     this.mfont = createFont("Osaka-Mono",48,true);/*Hymmnos*/
 //     mfont = loadFont("Osaka－等幅-48.vlw");
-     mfont = loadFont("Osaka-Mono-24.vlw");
-     textFont(mfont, dif.fontsize_field);
+//     mfont = loadFont("Osaka-Mono-24.vlw");
+     textFont(mfont, def.fontsize_field);
      
    }
    void scroll_log(String newlog){
@@ -27,34 +27,34 @@
        this.repeatTimes[0] = 0;
      }
    }
-    void rewrite(){ 
+    void rewrite_field(){ 
       background(0,0,0);
 //field      
       area.set_field(false);
       for(int i = Mobs[0].coordinates_body[0] - 5;i <= Mobs[0].coordinates_body[0] + 5;i++){
         for(int j = Mobs[0].coordinates_body[1] -5;j <= Mobs[0].coordinates_body[1] + 5; j++){
-          if(sq(i - Mobs[0].coordinates_body[0]) + sq(j - Mobs[0].coordinates_body[1]) <=25 && behavior.los(0,i,j)){
-            area.mapchips[constrain(i,0,dif.mapsize-1)][constrain(j,0,dif.mapsize-1)] = area.maptiles(i,j).get_character();
+          if(sq(i - Mobs[0].coordinates_body[0]) + sq(j - Mobs[0].coordinates_body[1]) <=25 *1.4 && behavior.los(0,i,j)){
+            area.mapchips[constrain(i,0,def.mapsize-1)][constrain(j,0,def.mapsize-1)] = area.maptiles(i,j).get_character();
           }
         }
       }
-      for(int i = 0; i < dif.chara_sum; i++){
+      for(int i = 0; i < def.chara_sum; i++){
         if(Mobs[i].living == true && behavior.los(0,i))
         area.mapchips[Mobs[i].get_bodyY()][Mobs[i].get_bodyX()] = Mobs[i].visual;
       }
       if(look){
         area.mapchips[Mobs[0].coordinates_look[0]][Mobs[0].coordinates_look[1]] = '*';
       }
-      if(Mobs[0].getX(look) < floor(dif.get_xnum()/2)) cameraX = 0;
-      else if(dif.mapsize - Mobs[0].getX(look) <= floor(dif.get_xnum()/2)) cameraX = dif.mapsize - dif.get_xnum();
-      else cameraX = Mobs[0].getX(look) - floor(dif.get_xnum()/2);
+      if(Mobs[0].getX(look) < floor(def.get_xnum()/2)) cameraX = 0;
+      else if(def.mapsize - Mobs[0].getX(look) <= floor(def.get_xnum()/2)) cameraX = def.mapsize - def.get_xnum();
+      else cameraX = Mobs[0].getX(look) - floor(def.get_xnum()/2);
       
-      if(Mobs[0].getY(look) < floor(dif.get_ynum()/2)) cameraY = 0;
-      else if(dif.mapsize - Mobs[0].getY(look) <= floor(dif.get_ynum()/2)) cameraY = dif.mapsize - dif.get_ynum();
-      else cameraY = Mobs[0].getY(look) - floor(dif.get_ynum()/2);
+      if(Mobs[0].getY(look) < floor(def.get_ynum()/2)) cameraY = 0;
+      else if(def.mapsize - Mobs[0].getY(look) <= floor(def.get_ynum()/2)) cameraY = def.mapsize - def.get_ynum();
+      else cameraY = Mobs[0].getY(look) - floor(def.get_ynum()/2);
       
-      for(int y = cameraY; y < cameraY + dif.get_ynum(); y++){
-        for(int x = cameraX; x < cameraX + dif.get_xnum(); x++){
+      for(int y = cameraY; y < cameraY + def.get_ynum(); y++){
+        for(int x = cameraX; x < cameraX + def.get_xnum(); x++){
           if(displaystr == "t"){
             displaystr  = str(area.mapchips[cameraY][cameraX]);
           }else{
@@ -64,9 +64,9 @@
         displaystr += "\n";
       }
       fill(255*(24-abs(demo.hour-12))/24);
-      textSize(dif.fontsize_field);
-      textLeading(dif.fontsize_field);
-      text(displaystr,dif.fontsize_stat*dif.letters_stat,dif.fontsize_field);
+      textSize(def.fontsize_field);
+      textLeading(def.fontsize_field);
+      text(displaystr,def.fontsize_stat*def.letters_stat,def.fontsize_field);
 //stat      
       displaystr = Mobs[0].job[0] + "\n";
       displaystr += Mobs[0].get_HP() + "\n";
@@ -76,17 +76,17 @@
       displaystr += "e:" + Mobs[0].bloodtank[0][3] + "/" + Mobs[0].bloodtank[1][3] + "cc\n";
       displaystr += "w:" + Mobs[0].bloodtank[0][1] + "/" + Mobs[0].bloodtank[1][1] + "cc\n";      
       displaystr += "a:" + Mobs[0].bloodtank[0][2] + "/" + Mobs[0].bloodtank[1][2] + "cc\n";        
-      textSize(dif.fontsize_stat);
-      textLeading(dif.fontsize_stat);
-      text(displaystr,0,dif.fontsize_stat,dif.fontsize_stat*dif.letters_stat);
+      textSize(def.fontsize_stat);
+      textLeading(def.fontsize_stat);
+      text(displaystr,0,def.fontsize_stat,def.fontsize_stat*def.letters_stat);
 //log      
       displaystr = log[3] + "\n";
       for(int i = 2;i >= 0; i--){
         displaystr += log[i] + getRepeatText(i) + "\n";
       }
-      textSize(dif.fontsize_log);
-      textLeading(dif.fontsize_log);
-      text(displaystr,0,dif.fontsize_field*(dif.get_ynum()+1)-(dif.fontsize_field-dif.fontsize_log));
+      textSize(def.fontsize_log);
+      textLeading(def.fontsize_log);
+      text(displaystr,0,def.fontsize_field*(def.get_ynum()+1)-(def.fontsize_field-def.fontsize_log));
       displaystr = "t";
     }
     

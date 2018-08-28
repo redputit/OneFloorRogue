@@ -3,25 +3,25 @@ class File{
   JSONObject user = new JSONObject();
   
   void save_config(){
-    config.setInt("fontsize_stat",dif.fontsize_stat);
-    config.setInt("fontsize_log",dif.fontsize_log);
-    config.setInt("fontsize_field",dif.fontsize_field);
-    config.setInt("letters_stat",dif.letters_stat);
-    config.setInt("lines_log",dif.lines_log);
+    config.setInt("fontsize_stat",def.fontsize_stat);
+    config.setInt("fontsize_log",def.fontsize_log);
+    config.setInt("fontsize_field",def.fontsize_field);
+    config.setInt("letters_stat",def.letters_stat);
+    config.setInt("lines_log",def.lines_log);
     
-    config.setInt("chara_sum",dif.chara_sum);
-    config.setInt("mapsize",dif.mapsize);
+    config.setInt("chara_sum",def.chara_sum);
+    config.setInt("mapsize",def.mapsize);
   }
     
   void load_config(){
-    dif.fontsize_stat = config.getInt("fontsize_stat");
-    dif.fontsize_log = config.getInt("fontsize_log");
-    dif.fontsize_field = config.getInt("fontsize_field");
-    dif.letters_stat = config.getInt("letters_stat");
-    dif.lines_log = config.getInt("lines_log");
+    def.fontsize_stat = config.getInt("fontsize_stat");
+    def.fontsize_log = config.getInt("fontsize_log");
+    def.fontsize_field = config.getInt("fontsize_field");
+    def.letters_stat = config.getInt("letters_stat");
+    def.lines_log = config.getInt("lines_log");
     
-    dif.chara_sum = config.getInt("chara_sum");
-    dif.mapsize = config.getInt("mapsize");
+    def.chara_sum = config.getInt("chara_sum");
+    def.mapsize = config.getInt("mapsize");
   
   }
   
@@ -39,7 +39,6 @@ class File{
     user.setInt("con",Mobs[0].constitution);
     user.setInt("dex",Mobs[0].dexterity);
     user.setInt("int",Mobs[0].intelligence);
-    user.setInt("edu",Mobs[0].education);
     user.setInt("pow",Mobs[0].power);
     user.setInt("agi",Mobs[0].agility);
     user.setInt("app",Mobs[0].appearance);
